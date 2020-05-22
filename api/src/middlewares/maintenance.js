@@ -1,12 +1,13 @@
-const mode = flag => async (req, res, next) => {
-    try {
-        console.log(flag)
-        if (flag == true)
-            return res.send({ msg: 'Estamos em mode de manutenção'});
-        
-        next(); 
-    } catch (err) {
-        next(err);
-    }
+const mode = flag => (req, res, next) => {
+	try {
+		if (flag === true)
+			return res.json({	
+				title: 'Modo de manutenção',
+				description: 'No momento estamos em manuntenção. Volte mais tarde.'
+			});
+		next();
+	} catch (err) {
+		next(req.body = err.message);
+	}
 }
 module.exports = mode;
