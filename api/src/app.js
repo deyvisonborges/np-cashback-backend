@@ -34,7 +34,7 @@ _application.use(_maintenanceMode(false)); // ele é global
 const sigin = require('./routes/sign-in');
 _application.use('/signin', sigin);
 
-_application.use('/',authorize(CONFIG_AUTH.SECRET_AUTH),(req, res, next) => {x
+_application.use('/',authorize(CONFIG_AUTH.SECRET_AUTH),(req, res, next) => {
 	res.redirect('/signin');
 });
 

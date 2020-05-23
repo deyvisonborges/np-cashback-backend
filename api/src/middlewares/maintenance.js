@@ -7,7 +7,7 @@ const mode = flag => (req, res, next) => {
 			});
 		next();
 	} catch (err) {
-		next(req.body = err.message);
+		next(err.message);
 	}
 }
 module.exports = mode;
