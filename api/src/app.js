@@ -3,7 +3,7 @@
 require('dotenv/config');
 
 // config
-const CONFIG = require('./config/auth.json');
+const CONFIG_AUTH = require('./config/auth.json');
 
 // modules
 const express = require('express');
@@ -30,20 +30,11 @@ _application.use(cors());
 _application.use(morgan('dev'));
 _application.use(_maintenanceMode(false)); // ele é global
 
-
 // routes
 const sigin = require('./routes/sign-in');
-
 _application.use('/signin', sigin);
 
-_application.use('/', (req, res, next) => {
-	console.log(res.header("x-auth-token", 'hkjh').send({
-    _id: 123123,
-    name: 'u123123',
-    email: 123123123
-  }));
-	console.log(req.headers['authorization'])
-	
+_application.use('/',authorize(CONFIG_AUTH.SECRET_AUTH),(req, res, next) => {x
 	res.redirect('/signin');
 });
 

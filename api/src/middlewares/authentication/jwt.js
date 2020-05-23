@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const authorize = (SECRET_AUTH) => (req, res, next) => {
   try {
     if (!SECRET_AUTH) {
-      throw new Error('[DEV_ERROR] Você precisa injetar uma config_auth para poder autorizar a requisição!');
+      throw new Error('[DEV_ERROR] You need to inject a configuration to authorize a request!');
     } else {
-      const header_token = req.headers['authorization'] || req.headers['authorization'] || window.localStorage.getItem('token');
+      const header_token = req.headers['authorization'] || req.headers['authorization'];
       if (!header_token)
         throw new Error('Token not found');
       return next();  
@@ -17,7 +17,7 @@ const authorize = (SECRET_AUTH) => (req, res, next) => {
 
 const generate = (payload, SECRET_AUTH) => err => {
   if(err) {
-    throw new Error('Não foi possível gerar o token.');
+    throw new Error('The token could not be generated.');
   } else {
     const data = jwt.sign(payload, SECRET_AUTH);
     return data;
@@ -26,10 +26,10 @@ const generate = (payload, SECRET_AUTH) => err => {
 
 const decode = (payload, SECRET_AUTH) => err => {
   if (err) {
-    throw new Error('Não foi decodificar o token.');
+    throw new Error('The token could not be decoded.');
   }
   const data = jwt.decode(payload, SECRET_AUTH);
-  return data
+  return data;
 }
 
 module.exports = {
